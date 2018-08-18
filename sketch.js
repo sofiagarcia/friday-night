@@ -1,12 +1,13 @@
-var video
-    vScale = 4;
+var video,
+    vScale = 9;
   
 
 function setup() {
  
   createCanvas(500, 500);
+  pixelDensity(1);
   video = createCapture(VIDEO);
-  video.size(width/2, height/2);
+  video.size(width/vScale, height/vScale);
 }
 
 function draw() {
@@ -20,19 +21,18 @@ function draw() {
       var g = video.pixels[index+1];
       var b = video.pixels[index+2];
       
-      var bright = (r+g+b)/3;
+      var bright = r + g + b;
       
-      var w = map(bright, 0, 255, 0, vScale);
+      var w = map(bright, 1, 255, 0, vScale);
       
-      noStroke()
+      // noStroke()
       fill(r, g, b);
-       rectMode(CENTER);
-      rect(x*vScale, y*vScale, w, w);
+      ellipse(x*vScale, y*vScale, w, w);
       
-      // pixels[index+0] = bright;
-      // pixels[index+1] = bright;
-      // pixels[index+2] = bright;
-      // pixels[index+3] = 255;
+      pixels[index+0] = bright;
+      pixels[index+1] = bright;
+      pixels[index+2] = bright;
+      pixels[index+3] = 255;
     }
   }
   
